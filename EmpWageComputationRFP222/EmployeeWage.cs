@@ -10,16 +10,22 @@ namespace EmpWageComputationRFP222
             Console.WriteLine("Welcome To EmployeeWageComputation");
             //UC1
             const int EMP_RATE_PER_HR = 20;
-            int employeePresent = 1;
+            int Is_Full_Time = 1;
+            int Is_Part_Time = 2;
             int empWage = 0;
             int empHrs = 0;
 
             Random r = new Random();
-            int empCheck = r.Next(0, 2);
-            if (empCheck == employeePresent)
+            int empCheck = r.Next(0, 3);
+            if (empCheck == Is_Full_Time)
             {
-                Console.WriteLine("The employee is present");
+                Console.WriteLine("The employee Is_Full_Time present");
                 empHrs = 8;
+            }
+            else if(empCheck == Is_Part_Time)
+            {
+                Console.WriteLine("The employee Is_Part_Time present");
+                empHrs = 4;
             }
             else
             {
