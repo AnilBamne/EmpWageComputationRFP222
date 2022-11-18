@@ -8,7 +8,11 @@ namespace EmpWageComputationRFP222
         {
             //main
             Console.WriteLine("Welcome To EmployeeWageComputation");
-            //UC1
+            //UC7
+            ComputeEmpWage();
+        }
+        public static void ComputeEmpWage()
+        {
             const int EMP_RATE_PER_HR = 20;
             //UC3
             const int Is_Full_Time = 1;
@@ -22,7 +26,7 @@ namespace EmpWageComputationRFP222
             int empHrs = 0;
             int empWorkingDays = 0;
 
-            while(TotalWorkingHrs <= MaxWorkingHrsPerMonth && empWorkingDays< MaxWorkingDaysPerMonth)
+            while (TotalWorkingHrs <= MaxWorkingHrsPerMonth && empWorkingDays < MaxWorkingDaysPerMonth)
             {
                 empWorkingDays++;
                 Random r = new Random();
@@ -31,29 +35,24 @@ namespace EmpWageComputationRFP222
                 switch (empCheck)
                 {
                     case Is_Full_Time:
-                        Console.WriteLine("Employee Is_Full_Time present");
                         empHrs = 8;
                         break;
                     case Is_Part_Time:
-                        Console.WriteLine("Employee Is_Part_Time present");
                         empHrs = 4;
                         break;
                     default:
-                        Console.WriteLine("Employee is abscent");
                         empHrs = 0;
                         break;
                 }
                 //UC2
                 empWage = EMP_RATE_PER_HR * empHrs;
-                TotalWageOfMonth+=empWage;
+                TotalWageOfMonth += empWage;
                 TotalWorkingHrs += empHrs;
-                Console.WriteLine("working day is : " + empWorkingDays);
-                Console.WriteLine("Total working hrs : " + TotalWorkingHrs);
-                Console.WriteLine("Employee Wage is : " + TotalWageOfMonth+"\n");
+                //Console.WriteLine("working day is : " + empWorkingDays);
+                //Console.WriteLine("Total working hrs : " + TotalWorkingHrs);
+                //Console.WriteLine("Employee Wage is : " + TotalWageOfMonth + "\n");
             }
-            
-            Console.WriteLine("Total Employee Wage of a month is : "+ TotalWageOfMonth);
-
+            Console.WriteLine("Total Employee Wage of a month is : " + TotalWageOfMonth);
         }
     }
 }
