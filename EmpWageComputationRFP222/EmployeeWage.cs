@@ -8,25 +8,24 @@ namespace EmpWageComputationRFP222
         {
             //main
             Console.WriteLine("Welcome To EmployeeWageComputation");
-            //UC7
-            ComputeEmpWage();
+            //UC8 Class method with parameters
+            ComputeEmpWage("Reliance",20,30,100);
+            ComputeEmpWage("Tata",25,26,100);
+            ComputeEmpWage("Bajaj",28,28,110);
         }
-        public static void ComputeEmpWage()
+        public static void ComputeEmpWage(String company,int empRatePerHr,int maxWorkingDaysPerMonth,int maxWorkingHrsPerMonth)
         {
-            const int EMP_RATE_PER_HR = 20;
-            //UC3
+            //Constants
             const int Is_Full_Time = 1;
             const int Is_Part_Time = 2;
-            //UC5
-            const int MaxWorkingDaysPerMonth = 20;
-            const int MaxWorkingHrsPerMonth = 100;
+           
+            //Variables
             int TotalWorkingHrs = 0;
             int TotalWageOfMonth = 0;
-            int empWage = 0;
-            int empHrs = 0;
+            int empWage, empHrs;
             int empWorkingDays = 0;
-
-            while (TotalWorkingHrs <= MaxWorkingHrsPerMonth && empWorkingDays < MaxWorkingDaysPerMonth)
+            //computation
+            while (TotalWorkingHrs <= maxWorkingHrsPerMonth && empWorkingDays <= maxWorkingDaysPerMonth)
             {
                 empWorkingDays++;
                 Random r = new Random();
@@ -44,15 +43,12 @@ namespace EmpWageComputationRFP222
                         empHrs = 0;
                         break;
                 }
-                //UC2
-                empWage = EMP_RATE_PER_HR * empHrs;
+                //computing wage
+                empWage = empRatePerHr * empHrs;
                 TotalWageOfMonth += empWage;
                 TotalWorkingHrs += empHrs;
-                //Console.WriteLine("working day is : " + empWorkingDays);
-                //Console.WriteLine("Total working hrs : " + TotalWorkingHrs);
-                //Console.WriteLine("Employee Wage is : " + TotalWageOfMonth + "\n");
             }
-            Console.WriteLine("Total Employee Wage of a month is : " + TotalWageOfMonth);
+            Console.WriteLine(" For "+company+" :\nTotal Employee Wage of a month is : " + TotalWageOfMonth);
         }
     }
 }
