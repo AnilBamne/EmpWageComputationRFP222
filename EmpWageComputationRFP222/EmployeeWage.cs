@@ -2,27 +2,31 @@
 
 namespace EmpWageComputationRFP222
 {
-    public class EmployeeWage
+    public class EmployeeWageBuilder
     {
-        static void Main(string[] args)
+        //used a employee wage builder class and computed employee wage of each company,and saved it.
+        //defining variables globally
+        public const int Is_Part_Time = 1;
+        public const int Is_Full_Time = 2;
+        private string company;
+        private int empRatePerHr;
+        private int maxWorkingDaysPerMonth;
+        private int maxWorkingHrsPerMonth;
+        public int totalEmpWage;
+        //constructor 
+        public EmployeeWageBuilder(string company, int empRatePerHr, int maxWorkingDaysPerMonth, int maxWorkingHrsPerMonth)
         {
-            //main
-            Console.WriteLine("Welcome To EmployeeWageComputation");
-            //UC8 Class method with parameters
-            ComputeEmpWage("Reliance",20,30,100);
-            ComputeEmpWage("Tata",25,26,100);
-            ComputeEmpWage("Bajaj",28,28,110);
+            this.company = company;
+            this.empRatePerHr = empRatePerHr;
+            this.maxWorkingDaysPerMonth = maxWorkingDaysPerMonth;
+            this.maxWorkingHrsPerMonth = maxWorkingHrsPerMonth;
         }
-        public static void ComputeEmpWage(String company,int empRatePerHr,int maxWorkingDaysPerMonth,int maxWorkingHrsPerMonth)
+
+        public void ComputeEmpWage()
         {
-            //Constants
-            const int Is_Full_Time = 1;
-            const int Is_Part_Time = 2;
-           
             //Variables
             int TotalWorkingHrs = 0;
-            int TotalWageOfMonth = 0;
-            int empWage, empHrs;
+            int empHrs;
             int empWorkingDays = 0;
             //computation
             while (TotalWorkingHrs <= maxWorkingHrsPerMonth && empWorkingDays <= maxWorkingDaysPerMonth)
@@ -44,11 +48,29 @@ namespace EmpWageComputationRFP222
                         break;
                 }
                 //computing wage
-                empWage = empRatePerHr * empHrs;
-                TotalWageOfMonth += empWage;
                 TotalWorkingHrs += empHrs;
             }
-            Console.WriteLine(" For "+company+" :\nTotal Employee Wage of a month is : " + TotalWageOfMonth);
+            totalEmpWage = TotalWorkingHrs * empRatePerHr;
+            Console.WriteLine(" For " + company + " :\nTotal Employee Wage of a month is : " + totalEmpWage);
+        }
+    }
+    public class EmployeeWage
+    { 
+        public static void Main(string[] args)
+        {
+            //main
+            Console.WriteLine("Welcome To EmployeeWageComputation");
+            //UC8 Class method with parameters
+            //ComputeEmpWage("Reliance", 20, 30, 100);
+            //ComputeEmpWage("Tata", 25, 26, 100);
+            //ComputeEmpWage("Bajaj", 28, 28, 110);
+            //UC9:Save the wage for each company
+            EmployeeWageBuilder Reliance = new EmployeeWageBuilder("Reliance", 20, 30, 100);
+            EmployeeWageBuilder Tata = new EmployeeWageBuilder("Tata", 25, 26, 100);
+            EmployeeWageBuilder Bajaj = new EmployeeWageBuilder("Bajaj", 28, 28, 110);
+            Reliance.ComputeEmpWage();
+            Tata.ComputeEmpWage();
+            Bajaj.ComputeEmpWage();
         }
     }
 }
