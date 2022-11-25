@@ -4,32 +4,40 @@ namespace EmpWageComputationRFP222
 {
     public class EmployeeWageBuilder
     {
-        //used a employee wage builder class and computed employee wage of each company,and saved it.
-        //defining variables globally
+        //defining constants
         public const int Is_Part_Time = 1;
         public const int Is_Full_Time = 2;
-        private string company;
-        private int empRatePerHr;
-        private int maxWorkingDaysPerMonth;
-        private int maxWorkingHrsPerMonth;
-        public int totalEmpWage;
-        //constructor 
-        public EmployeeWageBuilder(string company, int empRatePerHr, int maxWorkingDaysPerMonth, int maxWorkingHrsPerMonth)
+        private int numOfCompany = 0;
+        //defining arry to store multiple company details and computing their wages
+        private CompanyEmpWage[] CompanyEmpWageArray;//Array created of class CompanyEmpWage by the name companyEmpWageArray.
+        public EmployeeWageBuilder()//constructor to initialize 
         {
-            this.company = company;
-            this.empRatePerHr = empRatePerHr;
-            this.maxWorkingDaysPerMonth = maxWorkingDaysPerMonth;
-            this.maxWorkingHrsPerMonth = maxWorkingHrsPerMonth;
+            this.CompanyEmpWageArray = new CompanyEmpWage[5];// array size is 5.
         }
-
+        //Adding multiple companies
+        public void AddCompanyEmpWage(string company, int empRateperHour, int maxWorkingDaysPerMonth, int maxWorkingHrsPerMonth)
+        {
+            CompanyEmpWageArray[this.numOfCompany] = new CompanyEmpWage(company, empRateperHour, maxWorkingDaysPerMonth, maxWorkingHrsPerMonth);
+            numOfCompany++;
+        }
+        //computing wages
         public void ComputeEmpWage()
+        {
+            for (int i = 0; i < numOfCompany; i++)
+            {
+                CompanyEmpWageArray[i].SetTotalEmpWage(this.ComputeEmpWage(this.CompanyEmpWageArray[i]));
+                Console.WriteLine(this.CompanyEmpWageArray[i].ToString());
+            }
+        }
+        //providing class object as parameter to method
+        private int ComputeEmpWage(CompanyEmpWage companyEmpWage)    //Computing the wages for each company
         {
             //Variables
             int TotalWorkingHrs = 0;
             int empHrs;
             int empWorkingDays = 0;
             //computation
-            while (TotalWorkingHrs <= maxWorkingHrsPerMonth && empWorkingDays <= maxWorkingDaysPerMonth)
+            while (TotalWorkingHrs <= companyEmpWage.maxWorkingHrsPerMonth && empWorkingDays < companyEmpWage.maxWorkingDaysPerMonth)
             {
                 empWorkingDays++;
                 Random r = new Random();
@@ -47,11 +55,12 @@ namespace EmpWageComputationRFP222
                         empHrs = 0;
                         break;
                 }
-                //computing wage
+                //computing total working hours
                 TotalWorkingHrs += empHrs;
             }
-            totalEmpWage = TotalWorkingHrs * empRatePerHr;
-            Console.WriteLine(" For " + company + " :\nTotal Employee Wage of a month is : " + totalEmpWage);
+            //Total employee wage for each company
+            companyEmpWage.totalEmpWage = TotalWorkingHrs * companyEmpWage.empRatePerHour;
+            return companyEmpWage.totalEmpWage;
         }
     }
     public class EmployeeWage
@@ -60,17 +69,12 @@ namespace EmpWageComputationRFP222
         {
             //main
             Console.WriteLine("Welcome To EmployeeWageComputation");
-            //UC8 Class method with parameters
-            //ComputeEmpWage("Reliance", 20, 30, 100);
-            //ComputeEmpWage("Tata", 25, 26, 100);
-            //ComputeEmpWage("Bajaj", 28, 28, 110);
-            //UC9:Save the wage for each company
-            EmployeeWageBuilder Reliance = new EmployeeWageBuilder("Reliance", 20, 30, 100);
-            EmployeeWageBuilder Tata = new EmployeeWageBuilder("Tata", 25, 26, 100);
-            EmployeeWageBuilder Bajaj = new EmployeeWageBuilder("Bajaj", 28, 28, 110);
-            Reliance.ComputeEmpWage();
-            Tata.ComputeEmpWage();
-            Bajaj.ComputeEmpWage();
+            //UC10 manage emp wage for multiple companies
+            EmployeeWageBuilder employeeWageBuilder = new EmployeeWageBuilder();
+            employeeWageBuilder.AddCompanyEmpWage("Tata",30,28,100);
+            employeeWageBuilder.AddCompanyEmpWage("Bajaj",20,29,105);
+            employeeWageBuilder.AddCompanyEmpWage("Jio",22,27,110);
+            employeeWageBuilder.ComputeEmpWage();
         }
     }
 }
